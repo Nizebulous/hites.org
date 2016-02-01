@@ -1,11 +1,15 @@
 #!/usr/bin/env python
+"""
+manage.py
+"""
 import os
 import re
 import sys
 
 
 def read_env():
-    """Pulled from Honcho code with minor updates, reads local default
+    """
+    Pulled from Honcho code with minor updates, reads local default
     environment variables from a .env file located in the project root
     directory.
     """
@@ -22,15 +26,16 @@ def read_env():
                     if m3:
                         val = re.sub(r'\\(.)', r'\1', m3.group(1))
                     os.environ.setdefault(key, val)
-    except Exception:
+    except IOError:
+        # No .env file
         pass
 
 
 if __name__ == "__main__":
     read_env()
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "hites.settings")
-    print 'ENV:', os.environ['DJANGO_SETTINGS_MODULE']
 
+    # pylint: disable=wrong-import-position
     from django.core.management import execute_from_command_line
 
     execute_from_command_line(sys.argv)

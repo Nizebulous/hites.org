@@ -1,3 +1,6 @@
+"""
+production settings
+"""
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -5,6 +8,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def env_var(var, default=None):
+    """
+    Read the value from an environment variable. Provided default is
+    used if no environment variable is present provided
+    """
     if default is None:
         assert var in os.environ, 'Must set {} evironment variable'.format(var)
     return os.environ[var]
